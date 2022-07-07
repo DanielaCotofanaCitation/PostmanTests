@@ -1,0 +1,1083 @@
+{
+	"info": {
+		"_postman_id": "b779a210-2947-40cf-a8ea-6eae30a9799e",
+		"name": "Sprint 1 - Citation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19713790"
+	},
+	"item": [
+		{
+			"name": "AB-4960 - View List of folder contents",
+			"item": [
+				{
+					"name": "List of folders content - 400 not valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 400 code is returned\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders?parentId=532C4EAA-D706--B805-F942BC7B20B1",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							],
+							"query": [
+								{
+									"key": "parentId",
+									"value": "532C4EAA-D706--B805-F942BC7B20B1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of folders content - byParentId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies correct code is returned\r",
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    //parse the response JSON and test  properties\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.parentId).to.eql('532c4eaa-d706-4068-b805-f942bc7b20d1');\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"    pm.expect(responseJson.id).to.eql('532c4eaa-d706-4068-b805-f942bc7b20e1');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders?parentId=532c4eaa-d706-4068-b805-f942bc7b20d1",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							],
+							"query": [
+								{
+									"key": "parentId",
+									"value": "532c4eaa-d706-4068-b805-f942bc7b20d1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of folders content - 200 success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies correct code is returned\r",
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of folders content - Happy flow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const parentIdIsDefined = (folders) => {\r",
+									"    return folders.parentId !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an parentId\", function(){\r",
+									"    const folders = pm.response.json();\r",
+									"    pm.expect(folders.every(parentIdIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const nameIsDefined = (folders) => {\r",
+									"    return folders.name !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an name\", function(){\r",
+									"    const folders = pm.response.json();\r",
+									"    pm.expect(folders.every(nameIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const idIsDefined = (folders) => {\r",
+									"    return folders.id !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an id\", function(){\r",
+									"    const folders = pm.response.json();\r",
+									"    pm.expect(folders.every(idIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const createdByIsDefined = (folders) => {\r",
+									"    return folders.createdBy !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an createdBy\", function(){\r",
+									"    const folders = pm.response.json();\r",
+									"    pm.expect(folders.every(createdByIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const createdDateIsDefined = (folders) => {\r",
+									"    return folders.createdDate !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an createdDate\", function(){\r",
+									"    const folders = pm.response.json();\r",
+									"    pm.expect(folders.every(createdDateIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const updatedByIsDefined = (folders) => {\r",
+									"    return folders.updatedBy !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an updatedBy\", function(){\r",
+									"    const folders = pm.response.json();\r",
+									"    pm.expect(folders.every(updatedByIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const updatedDateIsDefined = (folders) => {\r",
+									"    return folders.updatedDate !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an updatedDate\", function(){\r",
+									"    const folders = pm.response.json();\r",
+									"    pm.expect(folders.every(updatedDateIsDefined)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of folders content - 404 bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 404 not found code is returned\r",
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.response.to.have.status(404)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folder",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of folders content - 500 Server error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 500 server error code is returned\r",
+									"pm.test(\"Status code is 500\", function(){\r",
+									"    pm.response.to.have.status(500)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AB-4961 - Open folder",
+			"item": [
+				{
+					"name": "Open folder - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//verifies correct code is returned\r",
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders/532C4EAA-D706-4068-B805-F942BC7B2002/breadcrumbs",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders",
+								"532C4EAA-D706-4068-B805-F942BC7B2002",
+								"breadcrumbs"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open folder -  Happy flow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const parentIdIsDefined = (breadcrumbs) => {\r",
+									"    return breadcrumbs.parentId !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an parentId\", function(){\r",
+									"    const breadcrumbs = pm.response.json();\r",
+									"    pm.expect(breadcrumbs.every(parentIdIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const nameIsDefined = (breadcrumbs) => {\r",
+									"    return breadcrumbs.name !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an name\", function(){\r",
+									"    const breadcrumbs = pm.response.json();\r",
+									"    pm.expect(breadcrumbs.every(nameIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const idIsDefined = (breadcrumbs) => {\r",
+									"    return breadcrumbs.id !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an id\", function(){\r",
+									"    const breadcrumbs = pm.response.json();\r",
+									"    pm.expect(breadcrumbs.every(idIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const createdByIsDefined = (breadcrumbs) => {\r",
+									"    return breadcrumbs.createdBy !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an createdBy\", function(){\r",
+									"    const breadcrumbs = pm.response.json();\r",
+									"    pm.expect(breadcrumbs.every(createdByIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const createdDateIsDefined = (breadcrumbs) => {\r",
+									"    return breadcrumbs.createdDate !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an createdDate\", function(){\r",
+									"    const breadcrumbs = pm.response.json();\r",
+									"    pm.expect(breadcrumbs.every(createdDateIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const updatedByIsDefined = (breadcrumbs) => {\r",
+									"    return breadcrumbs.updatedBy !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an updatedBy\", function(){\r",
+									"    const breadcrumbs = pm.response.json();\r",
+									"    pm.expect(breadcrumbs.every(updatedByIsDefined)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"const updatedDateIsDefined = (breadcrumbs) => {\r",
+									"    return breadcrumbs.updatedDate !== undefined;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Folders should have an updatedDate\", function(){\r",
+									"    const breadcrumbs = pm.response.json();\r",
+									"    pm.expect(breadcrumbs.every(updatedDateIsDefined)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders/532C4EAA-D706-4068-B805-F942BC7B2002/breadcrumbs",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders",
+								"532C4EAA-D706-4068-B805-F942BC7B2002",
+								"breadcrumbs"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open folder - 404 bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//verifies 404 not found code is returned\r",
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.response.to.have.status(404)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders/{{folderId}}/breadcrumb",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders",
+								"{{folderId}}",
+								"breadcrumb"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open folder - 500 Server Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//verifies 500 server error code is returned\r",
+									"pm.test(\"Status code is 500\", function(){\r",
+									"    pm.response.to.have.status(500)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURLC}}/folders/{{folderId}}/breadcrumb",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders",
+								"{{folderId}}",
+								"breadcrumb"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AB-4958 - Create folder",
+			"item": [
+				{
+					"name": "Create folders - 200 success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//verifies correct code is returned\r",
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B2002\",\r\n  \"name\": \"A22\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - Check attributes -200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test(\"parentId: !null\", function(){\r",
+									"    pm.expect(responseBody.parentId).to.not.be.null;\r",
+									"    pm.expect(responseBody.parentId).to.have.lengthOf.above(0);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"name: !null\", function(){\r",
+									"    pm.expect(responseBody.name).to.not.be.null;\r",
+									"    pm.expect(responseBody.name).to.have.lengthOf.above(0);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"id: !null\", function(){\r",
+									"    pm.expect(responseBody.id).to.not.be.null;\r",
+									"    pm.expect(responseBody.id).to.have.lengthOf.above(0);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"createdBy: !null\", function(){\r",
+									"    pm.expect(responseBody.createdBy).to.not.be.null;\r",
+									"    pm.expect(responseBody.createdBy).to.have.lengthOf.above(0);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"createdDate: !null\", function(){\r",
+									"    pm.expect(responseBody.createdDate).to.not.be.null;\r",
+									"    pm.expect(responseBody.createdDate).to.have.lengthOf.above(0);\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B2002\",\r\n  \"name\": \"Success3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - 500 Server error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//verifies 500 server error code is returned\r",
+									"pm.test(\"Status code is 500\", function(){\r",
+									"    pm.response.to.have.status(500)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B2002\",\r\n  \"name\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - Invalid parentId -400 Bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 400 code is returned\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"3fa85f64-5717-4562-b3fc-\",\r\n  \"name\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - Invalid folder name -400 Bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 400 code is returned\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B20D1\",\r\n  \"name\": \"test-,@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - Invalid Folder Name Length -400 Bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 400 code is returned\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B20D1\",\r\n  \"name\": \"lzqtEZVyKNLqMhracncJiqtuZBHuuRTMPVPplenKrHbpOYZYMaSlUauqqUNLttqFoxxAmjjwuCLmdhAxeomUerFQcnEOhMOmCpNwceWeUWosnFkQmYOrdeJrTNYOeuFMyVfgjwkcOfIkErLHsBtLzCQZCowbVaAkSymGQuvrppLGoRIMNNTQJArraUFygVPOSEyMfkwhiCovTrFIhkTLXXSrQxeAIwYDiqqKjLUIMVinTEPb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - Invalid  Length -400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 400 code is returned\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B20D1\",\r\n  \"name\": \"bxLJdAxvmzVIWIFsGOHOzBboTKfoNNeIbKiSgOvwLHHZIGrAWdVSevblMciQMAOegVtNZDmBiAhaojLcNRcOgEILqiLtvKNJOEVWAUnKHjQTzkQzCRQHAfyeooFTbehss\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - parentId and name empty - 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 400 code is returned\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"\",\r\n  \"name\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - Folder name already exist -400 Bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 400 code is returned\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B2002\",\r\n  \"name\": \"A11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create folders - 404 not  found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//verifies 404 not found code is returned\r",
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.response.to.have.status(404)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B200a\",\r\n  \"name\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURLC}}/folders",
+							"host": [
+								"{{baseURLC}}"
+							],
+							"path": [
+								"folders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURLC",
+			"value": "https://unitydocapidev.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "folderId",
+			"value": "532c4eaa-d706-4068-b805-f942bc7b2001",
+			"type": "string"
+		}
+	]
+}
