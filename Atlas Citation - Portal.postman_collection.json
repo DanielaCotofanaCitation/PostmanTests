@@ -622,7 +622,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B2002\",\r\n  \"name\": \"Success4\"\r\n}",
+									"raw": "{\r\n  \"parentId\": \"532C4EAA-D706-4068-B805-F942BC7B2002\",\r\n  \"name\": \"Success5\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1270,7 +1270,7 @@
 							"response": []
 						},
 						{
-							"name": "Update folder - 200 success -check attributes",
+							"name": "Update folder - 200 success -output fields",
 							"event": [
 								{
 									"listen": "test",
@@ -1789,6 +1789,1359 @@
 									"path": [
 										"folders",
 										"77ab2c46acaa4da359da08da63e60401"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AB-6775 - View files list",
+					"item": [
+						{
+							"name": "View Documents - 200 success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies correct code is returned\r",
+											"pm.test(\"Status code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.ok;\r",
+											"    pm.response.to.be.json\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLC}}/documents?folderId=532C4EAA-D706-4068-B805-F942BC7B2001",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents"
+									],
+									"query": [
+										{
+											"key": "folderId",
+											"value": "532C4EAA-D706-4068-B805-F942BC7B2001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Documents - 200 success - Output fields",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"\r",
+											"pm.test(\"name not null or empty\", function(){\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.isSaved).to.eql(true);\r",
+											"    \r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLC}}/documents?folderId=532C4EAA-D706-4068-B805-F942BC7B2002",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents"
+									],
+									"query": [
+										{
+											"key": "folderId",
+											"value": "532C4EAA-D706-4068-B805-F942BC7B2002"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Documents - 404 Parent folder not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 404 code is returned\r",
+											"pm.test(\"Status code is 404\", function(){\r",
+											"    pm.response.to.have.status(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLC}}/documents?folderId=3fa85f64-5717-4562-b3fc-2c963f66afa6",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents"
+									],
+									"query": [
+										{
+											"key": "folderId",
+											"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Documents -400 -  Missing folder ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLC}}/documents?folderId=",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents"
+									],
+									"query": [
+										{
+											"key": "folderId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Documents -400 -  Invalid folder ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLC}}/documents?folderId=532C4EAA---B805-F942BC7B2001",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents"
+									],
+									"query": [
+										{
+											"key": "folderId",
+											"value": "532C4EAA---B805-F942BC7B2001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Documents -400 -  Invalid folder ID characters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLC}}/documents?folderId=ldllld#@#@!$122",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents"
+									],
+									"query": [
+										{
+											"key": "folderId",
+											"value": "ldllld"
+										}
+									],
+									"hash": "@#@!$122"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Documents - 500 Unexpected Internal error",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 500 code is returned\r",
+											"pm.test(\"Status code is 500\", function(){\r",
+											"    pm.response.to.have.status(500)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLC}}/documents?folderId=3fa85f64-5717-4562-b3fc-2c963f66afa6",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents"
+									],
+									"query": [
+										{
+											"key": "folderId",
+											"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AB-5016 - Upload files",
+					"item": [
+						{
+							"name": "Upload file - 200 success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies correct code is returned\r",
+											"pm.test(\"Status code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.ok;\r",
+											"    pm.response.to.be.json\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/dcotofana/OneDrive - ENDAVA/Desktop/Citation/upload files - BE 2.PNG"
+										},
+										{
+											"key": "FolderId",
+											"value": "1B2A048B-DF6B-4D82-28A8-08DA6F372301",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "file test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "different types-extensions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies correct code is returned\r",
+											"pm.test(\"Status code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.ok;\r",
+											"    pm.response.to.be.json\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/dcotofana/OneDrive - ENDAVA/Desktop/Citation/upload files - BE 2.PNG"
+										},
+										{
+											"key": "FolderId",
+											"value": "1B2A048B-DF6B-4D82-28A8-08DA6F372301",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "file test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file - 200 success - Output fields",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var responseBody = JSON.parse(responseBody);\r",
+											"\r",
+											"pm.test(\"name: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.name).to.not.be.null;\r",
+											"    pm.expect(responseBody.name).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"folderId: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.folderId).to.not.be.null;\r",
+											"    pm.expect(responseBody.folderId).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"extension: !null and right extention\", function(){\r",
+											"    pm.expect(responseBody.extension).to.not.be.null;\r",
+											"    pm.expect(responseBody.extension).to.eql(\".PNG\");\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"isSaved: !null and equal true\", function(){\r",
+											"    pm.expect(responseBody.isSaved).to.not.be.null;\r",
+											"    pm.expect(responseBody.isSaved).to.eql(false);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"id: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.id).to.not.be.null;\r",
+											"    pm.expect(responseBody.id).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"createdBy: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.createdBy).to.not.be.null;\r",
+											"    pm.expect(responseBody.createdBy).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"createdDate: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.createdDate).to.not.be.null;\r",
+											"    pm.expect(responseBody.createdDate).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"updatedBy: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.updatedBy).to.not.be.null;\r",
+											"    pm.expect(responseBody.updatedBy).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"updatedDate: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.updatedDate).to.not.be.null;\r",
+											"    pm.expect(responseBody.updatedDate).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/dcotofana/OneDrive - ENDAVA/Desktop/Citation/upload files - BE.PNG"
+										},
+										{
+											"key": "FolderId",
+											"value": "1B2A048B-DF6B-4D82-28A8-08DA6F372301",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "file test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file - 404 - Folder does not exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 404 code is returned\r",
+											"pm.test(\"Status code is 404\", function(){\r",
+											"    pm.response.to.have.status(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/dcotofana/OneDrive - ENDAVA/Desktop/Citation/upload files - BE.PNG"
+										},
+										{
+											"key": "FolderId",
+											"value": "2BC9BEDE-B45C-442C-28A9-08DA6F372301",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "file test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file - 400 Bad request - invalid folderID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/dcotofana/OneDrive - ENDAVA/Desktop/Citation/confirmation msg displayed.PNG"
+										},
+										{
+											"key": "FolderId",
+											"value": "2BC9BEDE-B45C--28A9-08DA6F372301",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "file test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file - 400 Bad request - empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "FolderId",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file - 400 Bad request - missing parameters value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "FolderId",
+											"value": "1B2A048B-DF6B-4D82-28A8-08DA6F372301",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file - 500 Internal server error",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 500 code is returned\r",
+											"pm.test(\"Status code is 500\", function(){\r",
+											"    pm.response.to.have.status(500)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/dcotofana/OneDrive - ENDAVA/Desktop/Citation/upload files - BE.PNG"
+										},
+										{
+											"key": "FolderId",
+											"value": "2BC9BEDE-B45C-442C-28A9-08DA6F372301",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "file test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://unitydocapidev.azurewebsites.net/documents",
+									"protocol": "https",
+									"host": [
+										"unitydocapidev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"documents"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AB-5016 - Update files",
+					"item": [
+						{
+							"name": "Update document - 200 success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies correct code is returned\r",
+											"pm.test(\"Status code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.ok;\r",
+											"    pm.response.to.be.json\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"Test Document\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "extension",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies correct code is returned\r",
+											"pm.test(\"Status code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.ok;\r",
+											"    pm.response.to.be.json\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"Test Document\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 200 success - Output fields",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var responseBody = JSON.parse(responseBody);\r",
+											"\r",
+											"pm.test(\"name: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.name).to.not.be.null;\r",
+											"    pm.expect(responseBody.name).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"folderId: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.folderId).to.not.be.null;\r",
+											"    pm.expect(responseBody.folderId).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"extension: !null and right extention\", function(){\r",
+											"    pm.expect(responseBody.extension).to.not.be.null;\r",
+											"    pm.expect(responseBody.extension).to.eql(\"pdf\");\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"id: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.id).to.not.be.null;\r",
+											"    pm.expect(responseBody.id).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"createdBy: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.createdBy).to.not.be.null;\r",
+											"    pm.expect(responseBody.createdBy).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"createdDate: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.createdDate).to.not.be.null;\r",
+											"    pm.expect(responseBody.createdDate).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"updatedBy: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.updatedBy).to.not.be.null;\r",
+											"    pm.expect(responseBody.updatedBy).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.test(\"updatedDate: !null or empty\", function(){\r",
+											"    pm.expect(responseBody.updatedDate).to.not.be.null;\r",
+											"    pm.expect(responseBody.updatedDate).to.have.lengthOf.above(0);\r",
+											"    \r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"Test Document\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 400 Invalid document name lenght",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies correct code is returned\r",
+											"pm.test(\"Status code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.ok;\r",
+											"    pm.response.to.be.json\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"lzqtEZVyKNLqMhracncJiqtuZBHuuRTMPVPplenKrHbpOYZYMaSlUauqqUNLttqFoxxAmjjwuCLmdhAxeomUerFQcnEOhMOmCpNwceWeUWosnFkQmYOrdeJrTNYOeuFMyVfgjwkcOfIkErLHsBtLzCQZCowbVaAkSymGQuvrppLGoRIMNNTQJArraUFygVPOSEyMfkwhiCovTrFIhkTLXXSrQxeAIwYDiqqKjLUIMVinTEPb\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 400 - Invalid operation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"rep\",\r\n    \"value\": \"Test Document\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document -400 - Invalid operation (path- Id)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies correct code is returned\r",
+											"pm.test(\"Status code is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.ok;\r",
+											"    pm.response.to.be.json\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"Test Document\",\r\n    \"path\": \"/Id\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 400 Bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 404 - Document not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 404 code is returned\r",
+											"pm.test(\"Status code is 404\", function(){\r",
+											"    pm.response.to.have.status(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF96",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF96"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 400 - Invalid Name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"$#$@$2\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 400- No path",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"\",\r\n    \"path\": \"\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 400 - empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 400 code is returned\r",
+											"pm.test(\"Status code is 400\", function(){\r",
+											"    pm.response.to.have.status(400)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"\",\r\n    \"value\": \"\",\r\n    \"path\": \"\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 404 Invalid Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 404 code is returned\r",
+											"pm.test(\"Status code is 404\", function(){\r",
+											"    pm.response.to.have.status(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-AAAF696BBF95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update document - 500 Internal server error",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//verifies 500 code is returned\r",
+											"pm.test(\"Status code is 500\", function(){\r",
+											"    pm.response.to.have.status(500)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"value\": \"\",\r\n    \"path\": \"/Name\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLC}}/documents/98E4E84E-57B1-42CA-96EA-AAAF696BBF95",
+									"host": [
+										"{{baseURLC}}"
+									],
+									"path": [
+										"documents",
+										"98E4E84E-57B1-42CA-96EA-AAAF696BBF95"
 									]
 								}
 							},
